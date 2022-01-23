@@ -1,0 +1,21 @@
+.header {
+    width: 90%;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    font-size: 1.6rem;
+    font-weight: bold;
+
+    &_menu {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin-top: 2rem;
+        cursor: pointer;
+
+        .bookmark {
+            margin-left: 2rem;
+        }
+    }
+}
