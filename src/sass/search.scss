@@ -1,0 +1,36 @@
+.search {
+    width: 80%;
+    margin: 0 auto;
+    p {
+        font-size: 4.5rem;
+    }
+
+    &_container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        &_field {
+            width: 90%;
+            height: 3rem;
+            border-radius: 0.5rem;
+            background: rgb(240, 239, 239);
+            border: none;
+        }
+    
+        &_button {
+            height: 3rem;
+            width: 8rem;
+            border-radius: 0.5rem;
+            background-color: rgb(39, 173, 89);
+            border: none;
+            font-weight: bold;
+        }
+
+        &_button:hover {  
+            background-color: rgb(88, 206, 117);
+           cursor: pointer;
+        }
+    }
+
+
+}

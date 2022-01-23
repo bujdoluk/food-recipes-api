@@ -1,0 +1,21 @@
+{
+    "name": "Recipes",
+    "version": "1.0.0",
+    "description": "Recipe application",
+    "default": "index.html",
+    "scripts": {
+        "start": "parcel index.html",
+        "build": "parcel build index.html --dist-dir ./dist"
+    },
+    "author": "Lukas Bujdos",
+    "license": "ISC",
+    "devDependencies": {
+        "@parcel/transformer-sass": "^2.0.0-rc.0",
+        "parcel": "^2.0.0-rc.0",
+        "sass": "^1.26.10"
+    },
+    "dependencies": {
+        "core-js": "^3.20.2",
+        "regenerator-runtime": "^0.13.9"
+    }
+}
