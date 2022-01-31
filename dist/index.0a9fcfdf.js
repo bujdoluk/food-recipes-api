@@ -463,6 +463,10 @@ parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe
 );
 var _regeneratorRuntime = require("regenerator-runtime");
 var _config = require("./config");
+<<<<<<< HEAD
+=======
+var _helpers = require("./helpers");
+>>>>>>> b1ec6c40db42eeea004d1c4eb9d1a436c3bd188d
 const state = {
     recipe: {
     },
@@ -474,13 +478,28 @@ const state = {
     },
     bookmarks: []
 };
+<<<<<<< HEAD
+=======
+const createRecipe = function(data) {
+    const { recipe  } = data.data;
+    return {
+        id: recipe.id,
+        title: recipe.title,
+        image: recipe.image
+    };
+};
+>>>>>>> b1ec6c40db42eeea004d1c4eb9d1a436c3bd188d
 const loadRecipe = async function(id) {
     try {
         const data = await fetch(`${_config.URL}complexSearch?apiKey=${_config.KEY}`).then((res)=>res.json()
         ).then((data1)=>console.log(data1)
         );
+<<<<<<< HEAD
         state.recipe = data;
         console.log(state.recipe);
+=======
+        state.recipe = createRecipe(data);
+>>>>>>> b1ec6c40db42eeea004d1c4eb9d1a436c3bd188d
     } catch (err) {
         console.log(err);
         throw err;
@@ -488,7 +507,11 @@ const loadRecipe = async function(id) {
 };
 loadRecipe();
 
+<<<<<<< HEAD
 },{"regenerator-runtime":"cH8Iq","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./config":"beA2m"}],"cH8Iq":[function(require,module,exports) {
+=======
+},{"regenerator-runtime":"cH8Iq","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./config":"beA2m","./helpers":"9l3Yy"}],"cH8Iq":[function(require,module,exports) {
+>>>>>>> b1ec6c40db42eeea004d1c4eb9d1a436c3bd188d
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -1116,6 +1139,45 @@ const URL1 = 'https://api.spoonacular.com/recipes/';
 const KEY = '75411f548c104f4b924d1197852aea8d';
 const TIMEOUT_SECONDS = 10;
 
+<<<<<<< HEAD
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}]},["cGRya","6Yfb5"], "6Yfb5", "parcelRequire4fc3")
+=======
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"9l3Yy":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AJAX", ()=>AJAX
+);
+var _config = require("./config");
+var _regeneratorRuntime = require("regenerator-runtime");
+const timeout = function(seconds) {
+    return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            reject(new Error(`Your request took too long time! Timeout after ${seconds} seconds.`));
+        }, seconds * 1000);
+    });
+};
+const AJAX = async function(url, uploadData) {
+    try {
+        const fetchUrl = uploadData ? fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(uploadData)
+        }) : fetch(url);
+        const res = await Promise.race([
+            fetchUrl,
+            timeout(_config.TIMEOUT_SECONDS)
+        ]);
+        const data = await res.json();
+        if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+        return data;
+    } catch (err) {
+        throw err;
+    }
+};
+
+},{"./config":"beA2m","regenerator-runtime":"cH8Iq","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}]},["cGRya","6Yfb5"], "6Yfb5", "parcelRequire4fc3")
+>>>>>>> b1ec6c40db42eeea004d1c4eb9d1a436c3bd188d
 
 //# sourceMappingURL=index.0a9fcfdf.js.map
