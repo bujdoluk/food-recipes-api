@@ -1,14 +1,13 @@
-import { TIMEOUT_SECONDS } from "./config";
 import { async } from 'regenerator-runtime';
+import { TIMEOUT } from './config';
 
-const timeout = function (seconds) {
+const timeout = function (s) {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
-            reject(new Error(`Your request took too long time! Timeout after ${seconds} seconds.`))
-        }, seconds * 1000);
-    })
-}
-
+            reject(new Error(`Request took too long to complete! Timeout after ${s} seconds`));
+        }, s * 1000);
+    });
+};
 
 export const AJAX = async function (url, uploadData = undefined) {
     try {
@@ -20,13 +19,13 @@ export const AJAX = async function (url, uploadData = undefined) {
             body: JSON.stringify(uploadData),
         }) : fetch(url);
 
-        const res = await Promise.race([fetchUrl, timeout(TIMEOUT_SECONDS)]);
-        const data = await res.json();
+
+        const res = await Promise.race([fetchUrl, timeout(TIMEOUT)]);
+        const data = await res.JSON();
 
         if (!res.ok) throw new Error(`${data.message} (${res.status})`);
         return data;
-
     } catch (err) {
         throw err;
     }
-};
+}
