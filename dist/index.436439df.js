@@ -485,6 +485,7 @@ const searchResultsController = async function() {
         const query = _searchViewDefault.default.getQuery();
         if (!query) return;
         await _model.loadSearchResults(query);
+        _resultsViewDefault.default.render(_model.getSearchResultsPage());
     } catch (err) {
         console.log(err);
     }
@@ -503,6 +504,8 @@ parcelHelpers.export(exports, "state", ()=>state
 parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe
 );
 parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults
+);
+parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage
 );
 var _regeneratorRuntime = require("regenerator-runtime");
 var _config = require("./config");
@@ -564,6 +567,14 @@ const loadSearchResults = async function(query) {
         console.error(`${err}`);
         throw err;
     }
+};
+const getSearchResultsPage = function(page = state.search.page) {
+    state.search.page = page;
+    /// page 0
+    const firstPage = (page - 1) * state.search.resultsPerPage;
+    // page 9
+    const lastPage = page * state.search.resultsPerPage;
+    return state.search.results.slice(firstPage, lastPage);
 };
 
 },{"regenerator-runtime":"cH8Iq","./config":"beA2m","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./helpers":"9l3Yy"}],"cH8Iq":[function(require,module,exports) {
@@ -1233,17 +1244,17 @@ const AJAX = async function(url, uploadData) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class SearchView {
-    _searchElement = document.querySelector('.search_container');
+    _parentEl = document.querySelector('.search_container');
     getQuery() {
-        const query = this._searchElement.querySelector('.search_container_field').value;
+        const query = this._parentEl.querySelector('.search_container_field').value;
         this.clearInput();
         return query;
     }
     clearInput() {
-        this._searchElement.querySelector('.search_container_field').value = '';
+        this._parentEl.querySelector('.search_container_field').value = '';
     }
     addSearchListener(listener) {
-        this._searchElement.addEventListener('submit', function(e) {
+        this._parentEl.addEventListener('submit', function(e) {
             e.preventDefault();
             listener();
         });
@@ -1268,6 +1279,9 @@ class RecipeView extends _viewDefault.default {
             'load'
         ].forEach((event)=>window.addEventListener(event, listener)
         );
+    }
+    _generateMarkup() {
+        return `\n            <div>${this._data.title}</div>\n        `;
     }
 }
 exports.default = new RecipeView();
@@ -15036,8 +15050,35 @@ $({
 
 },{"../internals/export":"2mZbc","../internals/function-call":"d0MId"}],"a6WEO":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
 var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
+var _preView = require("./preView");
+var _preViewDefault = parcelHelpers.interopDefault(_preView);
+class ResultsView extends _viewDefault.default {
+    _parentEL = document.querySelector('.results');
+    _errorMessage = 'No recipes found for your query! Try again, please.';
+    _message = '';
+    _generateMarkup() {
+        return this._data.map((results)=>_preViewDefault.default.render(results)
+        ).join('');
+    }
+}
+exports.default = new ResultsView();
+
+},{"./View":"8rtS4","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./preView":"l2h2L"}],"l2h2L":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _view = require("./View");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+class PreView extends _viewDefault.default {
+    _parentEl = '';
+    _generateMarkup() {
+        const id = window.location.hash.slice(1);
+        return `\n        <li class="preview">\n            <a class="preview_link ${this._data.id === id ? 'preview__link--active' : ''}" href="#${this._data.id}">\n                <div class="preview_link_unit">\n                    <figure class="preview_unit_img"></figure>\n                    <div class="preview_unit_info">\n                        <div class="preview_unit_info_name">${this._data.title}</div>\n                        <div class="preview_unit_info_description">\n                            <div class="description">description</div>\n                            <div class="calories">calories</div>\n                        </div>\n                    </div>\n                </div>\n            </a>\n        </li>\n      `;
+    }
+}
+exports.default = new PreView();
 
 },{"./View":"8rtS4","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}]},["drOo7","jKMjS"], "jKMjS", "parcelRequire4fc3")
 

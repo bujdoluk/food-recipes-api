@@ -54,3 +54,21 @@ body {
   0%   { transform: rotate(0deg);   transform: rotate(0deg); }
   100% { transform: rotate(360deg); transform: rotate(360deg); }
 }
+
+////////// ERROR MESSAGE //////////////////////////////////////////
+
+.message,
+.error {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 5rem 4rem;
+  
+    display: flex;
+  
+    p {
+      margin-left: 1.5rem;
+      font-size: 1.8rem;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+}

@@ -9,7 +9,11 @@ class RecipeView extends View {
         ['hasChange', 'load'].forEach(event => window.addEventListener(event, listener));
     }
 
-
+    _generateMarkup() {
+        return `
+            <div>${this._data.title}</div>
+        `;
+    }
 
 }
 

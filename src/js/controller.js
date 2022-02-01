@@ -34,11 +34,13 @@ const searchResultsController = async function () {
 
         await model.loadSearchResults(query);
 
+        resultsView.render(model.getSearchResultsPage());
+
     } catch (err) {
         console.log(err);
     }
-
 };
+
 
 const startApp = function () {
     searchView.addSearchListener(searchResultsController);

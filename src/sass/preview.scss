@@ -1,0 +1,46 @@
+.preview {
+    flex-basis: 20%;
+    background: rgb(121, 120, 120);
+
+    &_link {
+        &_unit {
+            margin: 1rem;
+            display: flex;
+            flex-direction: row;
+
+            &_img {
+                width: 8rem;
+                height: 8rem;
+                border-radius: 50%;
+                background: hotpink;
+            }
+
+            &_info {
+                font-size: 1.5rem;
+                margin-left: 2rem;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                &_name {
+                    font-size: 2rem;
+                    font-weight: bold;
+                    margin-top: 1rem;
+                }
+
+                &_description {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+
+                    .calories {
+                        margin-left: 10rem;
+                    }
+                }
+            }
+        }
+    }
+
+    
+}

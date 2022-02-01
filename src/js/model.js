@@ -68,3 +68,15 @@ export const loadSearchResults = async function (query) {
     }
 };
 
+
+export const getSearchResultsPage = function (page = state.search.page) {
+    state.search.page = page;
+
+    /// page 0
+    const firstPage = (page - 1) * state.search.resultsPerPage;
+    // page 9
+    const lastPage = page * state.search.resultsPerPage;
+
+    return state.search.results.slice(firstPage, lastPage);
+}
+
